@@ -1,6 +1,7 @@
 export type ICountryData = {
   name: {
     common: string;
+    official: string;
   };
   population: number;
   region: string;

@@ -2,7 +2,7 @@ import { ICountryType } from "../types/country";
 
 export default function CountryCard({ country }: ICountryType) {
   return (
-    <article className="bg-white shadow-sm basis-72 flex-grow">
+    <article className="bg-white shadow-sm basis-72">
       <img
         src={country["flags"]?.png}
         alt={country["flags"]?.alt}
