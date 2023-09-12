@@ -5,6 +5,8 @@ export type ICountryData = {
   };
   population: number;
   region: string;
+  subregion: string;
+  tld: string;
   capital: string;
   flags: {
     png: string;

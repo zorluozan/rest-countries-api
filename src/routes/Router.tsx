@@ -9,7 +9,7 @@ export default function Router() {
       element: <Home />,
     },
     {
-      path: "/country/:id",
+      path: "/country/:name",
       element: <CountryDetail />,
     },
   ]);
