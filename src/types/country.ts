@@ -1,3 +1,12 @@
+type Currency = {
+  name: string;
+  symbol: string;
+};
+
+type Currencies = {
+  [key: string]: Currency;
+};
+
 export type ICountryData = {
   name: {
     common: string;
@@ -8,6 +17,7 @@ export type ICountryData = {
   subregion: string;
   tld: string;
   capital: string;
+  currencies: Currencies;
   flags: {
     png: string;
     alt: string;

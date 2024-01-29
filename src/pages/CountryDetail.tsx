@@ -42,32 +42,55 @@ export default function CountryDetail() {
           Back
         </button>
         <div className="flex justify-between items-center">
-          <img src={country["flags"]?.png} alt={country["flags"]?.alt} className="w-96 h-96" />
+          <img
+            src={country["flags"]?.png}
+            alt={country["flags"]?.alt}
+            className="w-96 h-96"
+          />
           <div className="ml-10 basis-3/4">
-            <h2 className="text-black font-bold mb-2 text-3xl">{country["name"]?.common}</h2>
+            <h2 className="text-black font-bold mb-2 text-3xl">
+              {country["name"]?.common}
+            </h2>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Native Name:</p>
-              <p className="text-darkBlue font-medium ml-2">{country["name"]?.official}</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country["name"]?.official}
+              </p>
             </div>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Population:</p>
-              <p className="text-darkBlue font-medium ml-2">{country?.population}</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country?.population}
+              </p>
             </div>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Region:</p>
-              <p className="text-darkBlue font-medium ml-2">{country?.region}</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country?.region}
+              </p>
             </div>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Sub Region:</p>
-              <p className="text-darkBlue font-medium ml-2">{country?.subregion}</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country?.subregion}
+              </p>
             </div>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Capital:</p>
-              <p className="text-darkBlue font-medium ml-2">{country?.capital}</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country?.capital}
+              </p>
             </div>
             <div className="flex items-center mb-2">
               <p className="text-black font-semibold">Top Level Domain:</p>
               <p className="text-darkBlue font-medium ml-2">{country?.tld}</p>
+            </div>
+            <div className="flex items-center mb-2">
+              <p className="text-black font-semibold">Currencies:</p>
+              <p className="text-darkBlue font-medium ml-2">
+                {country?.currencies["TRY"]?.name ||
+                  country?.currencies["EUR"]?.name}
+              </p>
             </div>
           </div>
         </div>

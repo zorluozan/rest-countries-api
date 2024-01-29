@@ -35,9 +35,13 @@ export default function Home() {
 
   const { data: countriesData, isLoading } = useQuery("countries", fetchApi);
 
-  const { data: searchResults, isLoading: isSearchLoading } = useQuery(["search", term], searchByName, {
-    enabled: term !== "",
-  });
+  const { data: searchResults, isLoading: isSearchLoading } = useQuery(
+    ["search", term],
+    searchByName,
+    {
+      enabled: term !== "",
+    }
+  );
 
   const { data: filteredCountries, isLoading: isFilterLoading } = useQuery(
     ["filteredCountries", regionName],
@@ -73,15 +77,21 @@ export default function Home() {
       {isFilterLoading || isSearchLoading ? (
         <Loading />
       ) : (
-        <div className="bg-lightGray">
+        <div className="bg-lightGray min-h-screen">
           <div className="flex justify-between items-center py-6 px-10">
             <Search term={term} onChange={handleSearchChange} />
-            <Filter regionName={regionName} onChange={handleFilterChange} regionsArray={regionsArray} />
+            <Filter
+              regionName={regionName}
+              onChange={handleFilterChange}
+              regionsArray={regionsArray}
+            />
           </div>
 
           <div className="flex flex-wrap gap-12 p-10">
             {(newData || []).map((country: ICountryData) => {
-              return <CountryCard country={country} key={country?.name?.official} />;
+              return (
+                <CountryCard country={country} key={country?.name?.official} />
+              );
             })}
           </div>
         </div>
