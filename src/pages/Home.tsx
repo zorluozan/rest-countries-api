@@ -82,7 +82,7 @@ export default function Home() {
     <>
       {isLoading && <Loading />}
       {
-        <div className="min-h-screen bg-lightGray">
+        <div className="min-h-screen bg-lightGray dark:bg-darkBlueBg">
           <div className="flex flex-col justify-between px-10 py-6 xl:flex-row xl:items-center">
             <Search term={term} onChange={handleSearchChange} />
             <Filter
