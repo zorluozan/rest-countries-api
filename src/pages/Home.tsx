@@ -35,20 +35,16 @@ export default function Home() {
 
   const { data: countriesData, isLoading } = useQuery("countries", fetchApi);
 
-  const { data: searchResults, isLoading: isSearchLoading } = useQuery(
-    ["search", term],
-    searchByName,
-    {
-      enabled: term !== "",
-    }
-  );
+  const { data: searchResults } = useQuery(["search", term], searchByName, {
+    enabled: term !== "",
+  });
 
-  const { data: filteredCountries, isLoading: isFilterLoading } = useQuery(
+  const { data: filteredCountries } = useQuery(
     ["filteredCountries", regionName],
     () => filterByRegion(regionName),
     {
       enabled: regionName !== "",
-    }
+    },
   );
 
   const getCountries = function () {
@@ -71,14 +67,23 @@ export default function Home() {
     fetchApi();
     fetchRegionNames();
   }, []);
+
+  useEffect(() => {
+    const delayDebounceFn = setTimeout(() => {
+      if (term) {
+        searchByName();
+      }
+    }, 500);
+
+    return () => clearTimeout(delayDebounceFn);
+  }, [term]);
+
   return (
     <>
       {isLoading && <Loading />}
-      {isFilterLoading || isSearchLoading ? (
-        <Loading />
-      ) : (
-        <div className="bg-lightGray min-h-screen">
-          <div className="flex justify-between items-center py-6 px-10">
+      {
+        <div className="min-h-screen bg-lightGray">
+          <div className="flex flex-col justify-between px-10 py-6 xl:flex-row xl:items-center">
             <Search term={term} onChange={handleSearchChange} />
             <Filter
               regionName={regionName}
@@ -95,7 +100,7 @@ export default function Home() {
             })}
           </div>
         </div>
-      )}
+      }
     </>
   );
 }

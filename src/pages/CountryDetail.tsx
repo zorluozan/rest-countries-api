@@ -20,7 +20,7 @@ export default function CountryDetail() {
   const getBordersByCodes = async (borders: string[] | undefined) => {
     if (!borders || borders.length === 0) return [];
     const { data } = await axios.get(
-      `${BASE_URL}alpha?codes=${borders?.join(",")}`
+      `${BASE_URL}alpha?codes=${borders?.join(",")}`,
     );
     return data;
   };
@@ -32,7 +32,7 @@ export default function CountryDetail() {
   } = useQuery("countryDetail", getCountryByName);
 
   const { data: bordersData } = useQuery(["borders", borders], () =>
-    getBordersByCodes(countryData?.borders)
+    getBordersByCodes(countryData?.borders),
   );
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function CountryDetail() {
     countryData && (
       <div className="bg-lightGray p-10">
         <button
-          className="bg-white py-2 px-6 text-darkBlue font-normal drop-shadow-md mb-6"
+          className="mb-6 bg-white px-6 py-2 font-normal text-darkBlue drop-shadow-md"
           onClick={(e) => {
             e.preventDefault();
             navigate("/");
@@ -62,67 +62,67 @@ export default function CountryDetail() {
         >
           Back
         </button>
-        <div className="flex justify-between items-center">
+        <div className="flex items-center justify-between">
           <img
             src={countryData["flags"]?.png}
             alt={countryData["flags"]?.alt}
-            className="w-96 h-96"
+            className="h-96 w-96"
           />
           <div className="ml-10 basis-3/4">
-            <h2 className="text-black font-bold text-3xl mb-6">
+            <h2 className="mb-6 text-3xl font-bold text-black">
               {countryData["name"]?.common}
             </h2>
             <div className="flex">
               <div className="mr-16">
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Native Name:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Native Name:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData["name"]?.official}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Population:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Population:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData?.population}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Region:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Region:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData?.region}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Sub Region:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Sub Region:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData?.subregion}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Capital:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Capital:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData?.capital}
                   </p>
                 </div>
               </div>
               <div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Top Level Domain:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Top Level Domain:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {countryData?.tld}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Currencies:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Currencies:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {Object.values(countryData?.currencies)
                       ?.map((currency) => currency.name)
                       .join(",")}
                   </p>
                 </div>
-                <div className="flex items-center mb-2">
-                  <p className="text-black font-semibold">Languages:</p>
-                  <p className="text-darkBlue font-medium ml-2">
+                <div className="mb-2 flex items-center">
+                  <p className="font-semibold text-black">Languages:</p>
+                  <p className="ml-2 font-medium text-darkBlue">
                     {Object.values(countryData?.languages)
                       ?.map((item) => item)
                       .join(",")}
@@ -131,8 +131,8 @@ export default function CountryDetail() {
               </div>
             </div>
             {bordersData?.length > 0 && (
-              <div className="flex items-center mt-10">
-                <p className="text-black font-bold mb-0 mr-4">
+              <div className="mt-10 flex items-center">
+                <p className="mb-0 mr-4 font-bold text-black">
                   Border Countries:
                 </p>
                 <div className="flex flex-wrap gap-4">
@@ -140,7 +140,7 @@ export default function CountryDetail() {
                     <button
                       key={index}
                       onClick={() => navigate(`/country/${code?.name?.common}`)}
-                      className="border border-solid border-darkGray text-darkBlue font-semibold px-4 py-1"
+                      className="border border-solid border-darkGray px-4 py-1 font-semibold text-darkBlue"
                     >
                       {code?.name?.common}
                     </button>

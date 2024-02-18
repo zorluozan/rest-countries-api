@@ -6,24 +6,33 @@ export default function CountryCard({ country }: ICountryType) {
 
   const handleCardClick = (name: string) => {
     navigate(`/country/${name}`);
-  }
+  };
 
   return (
-    <article className="bg-white shadow-sm basis-72 cursor-pointer" onClick={() => handleCardClick(country["name"]?.common)}>
-      <img src={country["flags"]?.png} alt={country["flags"]?.alt} className="w-full h-52 object-cover" />
+    <article
+      className="basis-72 cursor-pointer bg-white shadow-sm"
+      onClick={() => handleCardClick(country["name"]?.common)}
+    >
+      <img
+        src={country["flags"]?.png}
+        alt={country["flags"]?.alt}
+        className="h-52 w-full object-cover"
+      />
       <div className="p-4">
-        <p className="text-black font-bold mb-2 text-xl">{country["name"]?.common}</p>
-        <div className="flex items-center mb-2">
-          <p className="text-black font-semibold">Population:</p>
-          <p className="text-darkBlue font-medium">{country?.population}</p>
+        <p className="mb-2 text-xl font-bold text-black">
+          {country["name"]?.common}
+        </p>
+        <div className="mb-2 flex items-center">
+          <p className="font-semibold text-black">Population:</p>
+          <p className="font-medium text-darkBlue">{country?.population}</p>
         </div>
-        <div className="flex items-center mb-2">
-          <p className="text-black font-semibold">Region:</p>
-          <p className="text-darkBlue font-medium">{country?.region}</p>
+        <div className="mb-2 flex items-center">
+          <p className="font-semibold text-black">Region:</p>
+          <p className="font-medium text-darkBlue">{country?.region}</p>
         </div>
         <div className="flex items-center">
-          <p className="text-black font-semibold">Capital:</p>
-          <p className="text-darkBlue font-medium">{country?.capital}</p>
+          <p className="font-semibold text-black">Capital:</p>
+          <p className="font-medium text-darkBlue">{country?.capital}</p>
         </div>
       </div>
     </article>
