@@ -1,8 +1,9 @@
-import { BrowserRouter, Outlet } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
-import Router from "./routes/Router";
-import Header from "./layouts/Header";
+import { BrowserRouter, Outlet } from "react-router-dom";
+
 import { ThemeProvider } from "./contexts/ThemeContext";
+import Header from "./layouts/Header";
+import Router from "./routes/Router";
 
 const queryClient = new QueryClient();
 

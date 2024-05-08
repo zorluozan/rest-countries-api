@@ -1,12 +1,13 @@
-import { useState, useEffect, ChangeEvent } from "react";
-import { useQuery } from "react-query";
 import axios from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useQuery } from "react-query";
+
 import CountryCard from "../components/Cards/CountryCard";
-import { ICountryData } from "../types/country";
-import Loading from "../components/Loading";
 import Filter from "../components/Filter";
+import Loading from "../components/Loading";
 import Search from "../components/Search";
 import { BASE_URL } from "../config";
+import { ICountryData } from "../types/country";
 
 export default function Home() {
   const [term, setTerm] = useState("");

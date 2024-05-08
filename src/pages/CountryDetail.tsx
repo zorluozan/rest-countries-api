@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { ICountryData } from "../types/country";
 import axios from "axios";
+import { useEffect, useState } from "react";
 import { useQuery } from "react-query";
+import { useNavigate, useParams } from "react-router-dom";
+
+import BackButton from "../components/Buttons/BackButton";
 import Loading from "../components/Loading";
 import { BASE_URL } from "../config";
-import BackButton from "../components/Buttons/BackButton";
+import { ICountryData } from "../types/country";
 
 export default function CountryDetail() {
   let { name } = useParams();

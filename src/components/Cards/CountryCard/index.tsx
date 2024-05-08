@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+
 import { ICountryType } from "../../../types/country";
 
 export default function CountryCard({ country }: ICountryType) {

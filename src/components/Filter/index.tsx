@@ -1,5 +1,6 @@
-import { IRegionData } from "../../types/region";
 import { ChangeEvent } from "react";
+
+import { IRegionData } from "../../types/region";
 
 type Props = {
   regionName: string;
