@@ -1,3 +1,3 @@
 export type IRegionData = {
-    region: string;
-  };
+  region: string;
+};

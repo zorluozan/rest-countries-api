@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent } from "react";
 import { useQuery } from "react-query";
 import axios from "axios";
-import CountryCard from "../components/CountryCard";
+import CountryCard from "../components/Cards/CountryCard";
 import { ICountryData } from "../types/country";
 import Loading from "../components/Loading";
 import Filter from "../components/Filter";

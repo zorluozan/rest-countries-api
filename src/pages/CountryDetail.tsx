@@ -5,7 +5,7 @@ import axios from "axios";
 import { useQuery } from "react-query";
 import Loading from "../components/Loading";
 import { BASE_URL } from "../config";
-import BackButton from "../components/BackButton";
+import BackButton from "../components/Buttons/BackButton";
 
 export default function CountryDetail() {
   let { name } = useParams();
