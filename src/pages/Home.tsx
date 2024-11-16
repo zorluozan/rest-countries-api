@@ -7,13 +7,11 @@ import Search from "../components/Search";
 import { ICountryData } from "../types/country";
 import { applyFilterCountries } from "../utils/filters";
 import { useCountries } from "./useCountries";
-import { useRegions } from "./useRegions";
 
 export default function Home() {
   const [searchTerm, setSearchTerm] = useState<string>("");
   const [regionName, setRegionName] = useState<string>("");
 
-  const { regionsList, isLoading: isRegionsLoading } = useRegions();
   const { countriesList, isLoading: isCountriesLoading } = useCountries();
 
   const filteredCountries = applyFilterCountries({
@@ -32,16 +30,13 @@ export default function Home() {
 
   return (
     <>
-      {(isCountriesLoading || isRegionsLoading) && <Loading />}
-      {
+      {isCountriesLoading ? (
+        <Loading />
+      ) : (
         <div className="min-h-screen bg-lightGray dark:bg-darkBlueBg">
           <div className="flex flex-col justify-between px-10 py-6 xl:flex-row xl:items-center">
             <Search searchTerm={searchTerm} onChange={handleSearchChange} />
-            <Filter
-              regionName={regionName}
-              onChange={handleFilterChange}
-              regionsList={regionsList}
-            />
+            <Filter regionName={regionName} onChange={handleFilterChange} />
           </div>
 
           <div className="flex flex-wrap gap-12 p-10">
@@ -50,7 +45,7 @@ export default function Home() {
             })}
           </div>
         </div>
-      }
+      )}
     </>
   );
 }
