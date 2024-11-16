@@ -1,9 +1,9 @@
 interface Props {
-  term: string;
+  searchTerm: string;
   onChange: (newValue: any) => void;
 }
 
-export default function Search({ term, onChange }: Props) {
+export default function Search({ searchTerm, onChange }: Props) {
   return (
     <div className="relative mb-8 xl:mb-0">
       <div className="pointer-events-none absolute inset-y-0 start-0 flex items-center ps-3">
@@ -27,7 +27,7 @@ export default function Search({ term, onChange }: Props) {
         type="text"
         className="block w-full border-0 bg-gray-50 p-4 ps-10 text-sm text-gray-900 shadow-sm focus-within:border-0  dark:bg-darkBlueBg dark:text-white dark:placeholder-gray-400 dark:shadow-xl xl:w-auto"
         placeholder="Search for a country..."
-        value={term}
+        value={searchTerm}
         onChange={onChange}
       />
     </div>

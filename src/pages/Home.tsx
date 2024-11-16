@@ -1,103 +1,52 @@
-import axios from "axios";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useQuery } from "react-query";
+import { ChangeEvent, useState } from "react";
 
 import CountryCard from "../components/Cards/CountryCard";
 import Filter from "../components/Filter";
 import Loading from "../components/Loading";
 import Search from "../components/Search";
-import { BASE_URL } from "../config";
 import { ICountryData } from "../types/country";
+import { applyFilterCountries } from "../utils/filters";
+import { useCountries } from "./useCountries";
+import { useRegions } from "./useRegions";
 
 export default function Home() {
-  const [term, setTerm] = useState("");
-  const [regionName, setRegionName] = useState("");
-  const [regionsArray, setRegionsArray] = useState<[]>([]);
+  const [searchTerm, setSearchTerm] = useState<string>("");
+  const [regionName, setRegionName] = useState<string>("");
 
-  async function fetchApi() {
-    const { data } = await axios.get(`${BASE_URL}all`);
-    return data;
-  }
+  const { regionsList, isLoading: isRegionsLoading } = useRegions();
+  const { countriesList, isLoading: isCountriesLoading } = useCountries();
 
-  async function searchByName() {
-    const { data } = await axios.get(`${BASE_URL}name/${term}`);
-    return data;
-  }
-
-  async function fetchRegionNames() {
-    const { data } = await axios.get(`${BASE_URL}all?fields=region`);
-    setRegionsArray(data);
-  }
-
-  async function filterByRegion(region: string) {
-    const { data } = await axios.get(`${BASE_URL}region/${region}`);
-    return data;
-  }
-
-  const { data: countriesData, isLoading } = useQuery("countries", fetchApi);
-
-  const { data: searchResults } = useQuery(["search", term], searchByName, {
-    enabled: term !== "",
+  const filteredCountries = applyFilterCountries({
+    dataToFiltered: countriesList,
+    searchTerm,
+    regionName,
   });
 
-  const { data: filteredCountries } = useQuery(
-    ["filteredCountries", regionName],
-    () => filterByRegion(regionName),
-    {
-      enabled: regionName !== "",
-    },
-  );
-
-  const getCountries = function () {
-    if (term) return searchResults;
-    if (regionName) return filteredCountries;
-    return countriesData;
-  };
-
-  const newData = getCountries();
-
   function handleSearchChange(e: ChangeEvent<HTMLInputElement>) {
-    setTerm(e.target.value);
+    setSearchTerm(e.target.value);
   }
 
   function handleFilterChange(e: any) {
     setRegionName(e.target.value);
   }
 
-  useEffect(function () {
-    fetchApi();
-    fetchRegionNames();
-  }, []);
-
-  useEffect(() => {
-    const delayDebounceFn = setTimeout(() => {
-      if (term) {
-        searchByName();
-      }
-    }, 500);
-
-    return () => clearTimeout(delayDebounceFn);
-  }, [term]);
-
   return (
     <>
-      {isLoading && <Loading />}
+      {(isCountriesLoading || isRegionsLoading) && <Loading />}
       {
         <div className="min-h-screen bg-lightGray dark:bg-darkBlueBg">
           <div className="flex flex-col justify-between px-10 py-6 xl:flex-row xl:items-center">
-            <Search term={term} onChange={handleSearchChange} />
+            <Search searchTerm={searchTerm} onChange={handleSearchChange} />
             <Filter
               regionName={regionName}
               onChange={handleFilterChange}
-              regionsArray={regionsArray}
+              regionsList={regionsList}
             />
           </div>
 
           <div className="flex flex-wrap gap-12 p-10">
-            {(newData || []).map((country: ICountryData) => {
-              return (
-                <CountryCard country={country} key={country?.name?.official} />
-              );
+            {filteredCountries?.map((country: ICountryData, index: number) => {
+              return <CountryCard country={country} key={index} />;
             })}
           </div>
         </div>
